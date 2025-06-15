@@ -1,13 +1,7 @@
-import { getTestMetadata } from './decorators'
-
-export class TestSpec {
-    async run() {
-        const metadata = getTestMetadata(this)
-        for (const { method, name } of metadata.tests) {
-            if (metadata.beforeEach) await this[metadata.beforeEach]()
-            await this[method]()
-            if (metadata.afterEach) await this[metadata.afterEach]()
-            console.log(`✅ ${name}`)
+export abstract class TestSpec {
+    protected assertEqual(actual: any, expected: any) {
+        if (actual !== expected) {
+            throw new Error(`Assertion failed: expected ${expected}, got ${actual}`);
         }
     }
 }

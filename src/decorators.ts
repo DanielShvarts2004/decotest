@@ -1,36 +1,21 @@
-import 'reflect-metadata';
+export const TESTS_KEY = Symbol('tests');
+export const BEFORE_EACH_KEY = Symbol('beforeEach');
+export const AFTER_EACH_KEY = Symbol('afterEach');
 
-const TESTS_KEY = Symbol('tests')
-const BEFORE_EACH_KEY = Symbol('beforeEach')
-const AFTER_EACH_KEY = Symbol('afterEach')
-
-export function Test(name?: string) {
-  return function (target: any, propertyKey: string) {
-    if (!Reflect.hasMetadata(TESTS_KEY, target)) {
-      Reflect.defineMetadata(TESTS_KEY, [], target)
-    }
-    const tests = Reflect.getMetadata(TESTS_KEY, target)
-    tests.push({ method: propertyKey, name: name ?? propertyKey })
-  }
+function addMeta(target: any, key: string, sym: symbol) {
+  const ctor = target.constructor as any;
+  if (!ctor[sym]) ctor[sym] = [];
+  ctor[sym].push(key);
 }
 
-export function BeforeEach() {
-  return function (target: any, propertyKey: string) {
-    Reflect.defineMetadata(BEFORE_EACH_KEY, propertyKey, target)
-  }
+export function Test(target: any, key: string) {
+  addMeta(target, key, TESTS_KEY);
 }
 
-export function AfterEach() {
-  return function (target: any, propertyKey: string) {
-    Reflect.defineMetadata(AFTER_EACH_KEY, propertyKey, target)
-  }
+export function BeforeEach(target: any, key: string) {
+  addMeta(target, key, BEFORE_EACH_KEY);
 }
 
-export function getTestMetadata(instance: any) {
-  const proto = Object.getPrototypeOf(instance)
-  return {
-    tests: Reflect.getMetadata(TESTS_KEY, proto) || [],
-    beforeEach: Reflect.getMetadata(BEFORE_EACH_KEY, proto),
-    afterEach: Reflect.getMetadata(AFTER_EACH_KEY, proto),
-  }
+export function AfterEach(target: any, key: string) {
+  addMeta(target, key, AFTER_EACH_KEY);
 }
