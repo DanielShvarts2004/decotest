@@ -1,0 +1,34 @@
+{
+    "name": "decotest",
+    "version": "1.0.0",
+    "description": "Testing framework for Node.js using decorators and classes",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "type": "module",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "scripts": {
+        "build": "tsc",
+        "prepare": "npm run build"
+    },
+    "keywords": [
+        "test",
+        "framework",
+        "oop",
+        "typescript"
+    ],
+    "author": "Daniel Shvarts",
+    "license": "MIT",
+    "dependencies": {
+        "glob": "^11.0.3",
+        "reflect-metadata": "^0.2.2"
+    },
+    "devDependencies": {
+        "@types/node": "^24.0.1",
+        "typescript": "^5.8.3"
+    }
+}
