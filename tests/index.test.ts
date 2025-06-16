@@ -1,9 +1,8 @@
-import { TestSpec } from "../src";
 import { Test } from "../src/decorators";
-import { registerTestClass } from "../src/registerTestClass";
+import { TestClass } from "../src/registerTestClass";
 
-@registerTestClass
-export class MyTest extends TestSpec {
+@TestClass
+export class MyTest{
 
     @Test
     test1() {

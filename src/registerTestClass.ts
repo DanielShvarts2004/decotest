@@ -2,7 +2,7 @@ import { describe, test, beforeEach, afterEach } from 'vitest';
 import { TestSpec } from './TestSpec';
 import { AFTER_EACH_KEY, BEFORE_EACH_KEY, TESTS_KEY } from './decorators';
 
-export function registerTestClass(TestSpec: new () => TestSpec) {
+export function TestClass(TestSpec: new () => TestSpec) {
     describe(TestSpec.name, () => {
         const instance = new TestSpec();
         const ctor: any = TestSpec;
