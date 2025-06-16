@@ -1,4 +1,4 @@
-import { Test } from "../src/decorators";
+import { Only, Skip, Test } from "../src/decorators";
 import { TestClass } from "../src/TestClass";
 import { BaseTest } from "./base";
 
@@ -10,6 +10,7 @@ export class MyTest extends BaseTest {
         console.log('do something')
     }
 
+    @Skip
     @Test
     test3() {
         console.log('do something 2')

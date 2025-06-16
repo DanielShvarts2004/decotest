@@ -1,4 +1,4 @@
-import { TESTS_KEY, BEFORE_EACH_KEY, AFTER_EACH_KEY, BEFORE_ALL_KEY, AFTER_ALL_KEY } from "./symbols";
+import { TESTS_KEY, BEFORE_EACH_KEY, AFTER_EACH_KEY, BEFORE_ALL_KEY, AFTER_ALL_KEY, ONLY_KEY, SKIP_KEY } from "./symbols";
 
 const addMeta = (target: any, key: string, sym: symbol) => {
   const ctor = target.constructor as any;
@@ -24,4 +24,12 @@ export const BeforeAll = (target: any, key: string) => {
 
 export const AfterAll = (target: any, key: string) => {
   addMeta(target, key, AFTER_ALL_KEY);
+}
+
+export const Only = (target: any, key: string) => {
+  addMeta(target, key, ONLY_KEY);
+}
+
+export const Skip = (target: any, key: string) => {
+  addMeta(target, key, SKIP_KEY);
 }
