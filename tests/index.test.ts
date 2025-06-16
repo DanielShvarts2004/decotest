@@ -9,4 +9,9 @@ export class MyTest extends BaseTest {
     test1() {
         console.log('do something')
     }
+
+    @Test
+    test3() {
+        console.log('do something 2')
+    }
 }
