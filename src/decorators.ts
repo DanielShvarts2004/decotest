@@ -1,19 +1,27 @@
-import { TESTS_KEY, BEFORE_EACH_KEY, AFTER_EACH_KEY } from "./symbols";
+import { TESTS_KEY, BEFORE_EACH_KEY, AFTER_EACH_KEY, BEFORE_ALL_KEY, AFTER_ALL_KEY } from "./symbols";
 
-function addMeta(target: any, key: string, sym: symbol) {
+const addMeta = (target: any, key: string, sym: symbol) => {
   const ctor = target.constructor as any;
   if (!ctor[sym]) ctor[sym] = [];
   ctor[sym].push(key);
 }
 
-export function Test(target: any, key: string) {
+export const Test = (target: any, key: string) => {
   addMeta(target, key, TESTS_KEY);
 }
 
-export function BeforeEach(target: any, key: string) {
+export const BeforeEach = (target: any, key: string) => {
   addMeta(target, key, BEFORE_EACH_KEY);
 }
 
-export function AfterEach(target: any, key: string) {
+export const AfterEach = (target: any, key: string) => {
   addMeta(target, key, AFTER_EACH_KEY);
+}
+
+export const BeforeAll = (target: any, key: string) => {
+  addMeta(target, key, BEFORE_ALL_KEY);
+}
+
+export const AfterAll = (target: any, key: string) => {
+  addMeta(target, key, AFTER_ALL_KEY);
 }
