@@ -1,2 +1,2 @@
 export * from './decorators';
-export * from './TestSpec';
+export * from './TestClass';
