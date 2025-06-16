@@ -1,6 +1,6 @@
 import { describe, test, beforeEach, afterEach } from 'vitest';
 import { TestSpec } from './TestSpec';
-import { AFTER_EACH_KEY, BEFORE_EACH_KEY, TESTS_KEY } from './decorators';
+import { AFTER_EACH_KEY, BEFORE_EACH_KEY, TESTS_KEY } from './symbols';
 
 export function TestClass(TestSpec: new () => TestSpec) {
     describe(TestSpec.name, () => {

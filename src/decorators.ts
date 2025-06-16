@@ -1,6 +1,4 @@
-export const TESTS_KEY = Symbol('tests');
-export const BEFORE_EACH_KEY = Symbol('beforeEach');
-export const AFTER_EACH_KEY = Symbol('afterEach');
+import { TESTS_KEY, BEFORE_EACH_KEY, AFTER_EACH_KEY } from "./symbols";
 
 function addMeta(target: any, key: string, sym: symbol) {
   const ctor = target.constructor as any;

@@ -1,5 +1,5 @@
 import { Test } from "../src";
-import { TestClass } from "../src/registerTestClass";
+import { TestClass } from "../src/TestClass";
 
 @TestClass
 export class MyTest2{
