@@ -7,17 +7,17 @@ type Hooks = {
     afterAlls: string[],
 };
 
-export const setupHooks = (instance: any, hooks: Hooks) => {
+export const setupHooks = async (instance: any, hooks: Hooks) => {
     const {
         beforeAlls, beforeEachs, afterEachs, afterAlls
     } = hooks;
 
     if (beforeEachs.length)
-        beforeEach(() => beforeEachs.forEach((m) => instance[m]()));
+        beforeEach(async () => beforeEachs.forEach(async (m) => await instance[m]()));
     if (afterEachs.length)
-        afterEach(() => afterEachs.forEach((m) => instance[m]()));
+        afterEach(async () => afterEachs.forEach(async (m) => await instance[m]()));
     if (beforeAlls.length)
-        beforeAll(() => beforeAlls.forEach((m) => instance[m]()));
+        beforeAll(async () => beforeAlls.forEach(async (m) => await instance[m]()));
     if (afterAlls.length)
-        afterAll(() => afterAlls.forEach((m) => instance[m]()));
+        afterAll(async () => afterAlls.forEach(async (m) => await instance[m]()));
 }

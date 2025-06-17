@@ -6,8 +6,8 @@ import { setUpOnlyTests, setUpSkippedTests, setUpTests } from '../core/tests';
 
 type Constructor<T> = new () => T;
 
-export function TestClass<T>(constructor: Constructor<T>) {
-    describe(constructor.name, () => {
+export const TestClass = <T>(constructor: Constructor<T>) => {
+    describe(constructor.name, async () => {
         const instance = new constructor();
         const ctor: any = constructor;
 
@@ -23,17 +23,17 @@ export function TestClass<T>(constructor: Constructor<T>) {
 
         const filteredTests = tests.filter(test => !skips.includes(test) || !onlys.includes(test));
 
-        setupHooks(instance, {
+        await setupHooks(instance, {
             beforeAlls,
             beforeEachs,
             afterEachs,
             afterAlls,
         });
 
-        setUpSkippedTests(instance, skips);
-
-        setUpOnlyTests(instance, onlys);
-
-        setUpTests(instance, filteredTests);
+        Promise.all([
+            setUpSkippedTests(instance, skips),
+            setUpOnlyTests(instance, onlys),
+            setUpTests(instance, filteredTests)
+        ]);
     });
 }

@@ -5,7 +5,7 @@ import { BaseTest } from "./base";
 export class MyTest extends BaseTest {
 
     @Test
-    test1() {
+    async test1() {
         console.log('do something')
     }
 
