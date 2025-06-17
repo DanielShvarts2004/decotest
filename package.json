@@ -24,7 +24,6 @@
     "author": "Daniel Shvarts",
     "license": "MIT",
     "dependencies": {
-        "glob": "^11.0.3",
         "reflect-metadata": "^0.2.2",
         "vitest": "^3.2.3"
     },

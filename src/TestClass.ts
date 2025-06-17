@@ -1,21 +1,22 @@
+import 'reflect-metadata';
 import { describe, test, beforeEach, afterEach, beforeAll, afterAll } from 'vitest';
-import { TestSpec } from './TestSpec';
 import { AFTER_ALL_KEY, AFTER_EACH_KEY, BEFORE_ALL_KEY, BEFORE_EACH_KEY, ONLY_KEY, SKIP_KEY, TESTS_KEY } from './symbols';
+import { TestSpec } from './TestSpec';
 
 export function TestClass(TestSpec: new () => TestSpec) {
     describe(TestSpec.name, () => {
         const instance = new TestSpec();
         const ctor: any = TestSpec;
 
-        const skips: string[] = ctor[SKIP_KEY] || [];
-        const onlys: string[] = ctor[ONLY_KEY] || [];
-        const tests: string[] = ctor[TESTS_KEY] || [];
+        const skips: string[] = Reflect.getMetadata(SKIP_KEY, ctor) || [];
+        const onlys: string[] = Reflect.getMetadata(ONLY_KEY, ctor) || [];
+        const tests: string[] = Reflect.getMetadata(TESTS_KEY, ctor) || [];
         const filteredTests = tests.filter(test => !skips.includes(test) || !onlys.includes(test));
 
-        const beforeEachs: string[] = ctor[BEFORE_EACH_KEY] || [];
-        const afterEachs: string[] = ctor[AFTER_EACH_KEY] || [];
-        const beforeAlls: string[] = ctor[BEFORE_ALL_KEY] || [];
-        const afterAlls: string[] = ctor[AFTER_ALL_KEY] || [];
+        const beforeEachs: string[] = Reflect.getMetadata(BEFORE_EACH_KEY, ctor) || [];
+        const afterEachs: string[] = Reflect.getMetadata(AFTER_EACH_KEY, ctor) || [];
+        const beforeAlls: string[] = Reflect.getMetadata(BEFORE_ALL_KEY, ctor) || [];
+        const afterAlls: string[] = Reflect.getMetadata(AFTER_ALL_KEY, ctor) || [];
 
         if (beforeEachs.length)
             beforeEach(() => beforeEachs.forEach((m) => instance[m]()));
