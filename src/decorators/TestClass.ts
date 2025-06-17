@@ -3,13 +3,12 @@ import { describe } from 'vitest';
 import { getMetadata } from '../core/metadata';
 import { setupHooks } from '../core/hooks';
 import { setUpOnlyTests, setUpSkippedTests, setUpTests } from '../core/tests';
-
-type Constructor<T> = new () => T;
+import { Constructor } from '../types/constructor';
 
 export const TestClass = <T>(constructor: Constructor<T>) => {
     describe(constructor.name, async () => {
         const instance = new constructor();
-        const ctor: any = constructor;
+        const ctor = constructor;
 
         const {
             tests,

@@ -7,7 +7,7 @@ type Hooks = {
     afterAlls: string[],
 };
 
-export const setupHooks = async (instance: any, hooks: Hooks) => {
+export const setupHooks = async <T>(instance: T, hooks: Hooks) => {
     const {
         beforeAlls, beforeEachs, afterEachs, afterAlls
     } = hooks;

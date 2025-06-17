@@ -1,3 +1,4 @@
+import { Constructor } from '../types/constructor';
 import {
     SKIP_KEY,
     ONLY_KEY,
@@ -8,7 +9,7 @@ import {
     AFTER_ALL_KEY,
 } from './keys';
 
-export const getMetadata = (ctor: any) => {
+export const getMetadata = <T>(ctor: Constructor<T>) => {
     return {
         skips: Reflect.getMetadata(SKIP_KEY, ctor) || [],
         onlys: Reflect.getMetadata(ONLY_KEY, ctor) || [],
