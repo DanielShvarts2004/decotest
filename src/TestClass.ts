@@ -1,12 +1,11 @@
 import 'reflect-metadata';
 import { describe, test, beforeEach, afterEach, beforeAll, afterAll } from 'vitest';
 import { AFTER_ALL_KEY, AFTER_EACH_KEY, BEFORE_ALL_KEY, BEFORE_EACH_KEY, ONLY_KEY, SKIP_KEY, TESTS_KEY } from './symbols';
-import { TestSpec } from './TestSpec';
 
-export function TestClass(TestSpec: new () => TestSpec) {
-    describe(TestSpec.name, () => {
-        const instance = new TestSpec();
-        const ctor: any = TestSpec;
+export function TestClass(Target: new () => Object) {
+    describe(Target.name, () => {
+        const instance = new Target();
+        const ctor: any = Target;
 
         const skips: string[] = Reflect.getMetadata(SKIP_KEY, ctor) || [];
         const onlys: string[] = Reflect.getMetadata(ONLY_KEY, ctor) || [];
