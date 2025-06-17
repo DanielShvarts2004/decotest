@@ -20,7 +20,7 @@ export const TestClass = <T>(constructor: Constructor<T>) => {
             afterAlls,
         } = getMetadata(ctor);
 
-        const filteredTests = tests.filter(test => !skips.includes(test) || !onlys.includes(test));
+        const filteredTests = tests.difference(skips).difference(onlys);
 
         await setupHooks(instance, {
             beforeAlls,
