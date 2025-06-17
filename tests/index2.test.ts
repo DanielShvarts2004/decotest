@@ -1,5 +1,4 @@
-import { Test } from "../src";
-import { TestClass } from "../src/TestClass";
+import { Test, TestClass } from "../src";
 import { BaseTest } from "./base";
 
 @TestClass

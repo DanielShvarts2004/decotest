@@ -1,5 +1,4 @@
-import { Only, Skip, Test } from "../src/decorators";
-import { TestClass } from "../src/TestClass";
+import { Skip, Test, TestClass } from "../src";
 import { BaseTest } from "./base";
 
 @TestClass

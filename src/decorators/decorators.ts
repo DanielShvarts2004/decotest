@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { TESTS_KEY, BEFORE_EACH_KEY, AFTER_EACH_KEY, BEFORE_ALL_KEY, AFTER_ALL_KEY, ONLY_KEY, SKIP_KEY } from "./symbols";
+import { TESTS_KEY, BEFORE_EACH_KEY, AFTER_EACH_KEY, BEFORE_ALL_KEY, AFTER_ALL_KEY, ONLY_KEY, SKIP_KEY } from "../core/keys";
 
 const addMeta = (target: any, key: string, symbol: symbol) => {
   const existingMeta = Reflect.getMetadata(symbol, target.constructor) || [];
