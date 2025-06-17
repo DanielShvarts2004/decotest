@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { describe, test, beforeEach, afterEach, beforeAll, afterAll } from 'vitest';
 import { getMetadata } from '../core/metadata';
 import { setupHooks } from '../core/hooks';
+import { setUpOnlyTests, setUpSkippedTests, setUpTests } from '../core/tests';
 
 export function TestClass(Target: new () => Object) {
     describe(Target.name, () => {
@@ -27,22 +28,10 @@ export function TestClass(Target: new () => Object) {
             afterAlls,
         });
 
-        for (const testName of skips) {
-            test.skip(testName, () => {
-                instance[testName]();
-            });
-        }
+        setUpSkippedTests(instance, skips);
 
-        for (const testName of onlys) {
-            test.only(testName, () => {
-                instance[testName]();
-            });
-        }
+        setUpOnlyTests(instance, onlys);
 
-        for (const testName of filteredTests) {
-            test(testName, () => {
-                instance[testName]();
-            });
-        }
+        setUpTests(instance, filteredTests);
     });
 }

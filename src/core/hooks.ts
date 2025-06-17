@@ -7,7 +7,7 @@ type Hooks = {
     afterAlls: string[],
 };
 
-export function setupHooks(instance: any, hooks: Hooks) {
+export const setupHooks = (instance: any, hooks: Hooks) => {
     const {
         beforeAlls, beforeEachs, afterEachs, afterAlls
     } = hooks;
