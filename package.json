@@ -30,5 +30,9 @@
     "devDependencies": {
         "@types/node": "^24.0.1",
         "typescript": "^5.8.3"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DanielShvarts2004/decotest.git"
     }
 }
