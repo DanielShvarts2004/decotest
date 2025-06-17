@@ -1,6 +1,6 @@
 import { test } from "vitest";
 
-export const setUpSkippedTests = (instance: Object, skippedTests: string[]) => {
+export const setUpSkippedTests = <T>(instance: T, skippedTests: string[]) => {
     for (const testName of skippedTests) {
         test.skip(testName, () => {
             instance[testName]();
@@ -8,7 +8,7 @@ export const setUpSkippedTests = (instance: Object, skippedTests: string[]) => {
     }
 }
 
-export const setUpOnlyTests = (instance: Object, onlyTests: string[]) => {
+export const setUpOnlyTests = <T>(instance: T, onlyTests: string[]) => {
     for (const testName of onlyTests) {
         test.only(testName, () => {
             instance[testName]();
@@ -16,7 +16,7 @@ export const setUpOnlyTests = (instance: Object, onlyTests: string[]) => {
     }
 }
 
-export const setUpTests = (instance: Object, tests: string[]) => {
+export const setUpTests = <T>(instance: T, tests: string[]) => {
     for (const testName of tests) {
         test(testName, () => {
             instance[testName]();

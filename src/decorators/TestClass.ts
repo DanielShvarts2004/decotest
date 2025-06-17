@@ -1,13 +1,15 @@
 import 'reflect-metadata';
-import { describe, test, beforeEach, afterEach, beforeAll, afterAll } from 'vitest';
+import { describe } from 'vitest';
 import { getMetadata } from '../core/metadata';
 import { setupHooks } from '../core/hooks';
 import { setUpOnlyTests, setUpSkippedTests, setUpTests } from '../core/tests';
 
-export function TestClass(Target: new () => Object) {
-    describe(Target.name, () => {
-        const instance = new Target();
-        const ctor: any = Target;
+type Constructor<T> = new () => T;
+
+export function TestClass<T>(constructor: Constructor<T>) {
+    describe(constructor.name, () => {
+        const instance = new constructor();
+        const ctor: any = constructor;
 
         const {
             tests,
