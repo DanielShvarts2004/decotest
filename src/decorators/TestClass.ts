@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { describe } from 'vitest';
 import { getMetadata } from '../core/metadata';
 import { setupHooks } from '../core/hooks';
-import { setUpOnlyTests, setUpSkippedTests, setUpTests } from '../core/tests';
+import { setUpOnlyTests, setUpSkippedTests, setUpTestCases, setUpTests } from '../core/tests';
 import { Constructor } from '../types/constructor';
 
 export const TestClass = <T>(constructor: Constructor<T>) => {
@@ -12,6 +12,7 @@ export const TestClass = <T>(constructor: Constructor<T>) => {
 
         const {
             tests,
+            testCases,
             skips,
             onlys,
             beforeAlls,
@@ -21,6 +22,10 @@ export const TestClass = <T>(constructor: Constructor<T>) => {
         } = getMetadata(ctor);
 
         const filteredTests = tests.difference(skips).difference(onlys);
+        const filteredTestCases = testCases.filter(testCase => {
+            const key = Object.keys(testCase)[0];
+            return !skips.has(key) && !onlys.has(key);
+        });
 
         await setupHooks(instance, {
             beforeAlls,
@@ -32,7 +37,8 @@ export const TestClass = <T>(constructor: Constructor<T>) => {
         Promise.all([
             setUpSkippedTests(instance, skips),
             setUpOnlyTests(instance, onlys),
-            setUpTests(instance, filteredTests)
+            setUpTestCases(instance, filteredTestCases),
+            setUpTests(instance, filteredTests),
         ]);
     });
 }

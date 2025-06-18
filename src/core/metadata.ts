@@ -7,6 +7,7 @@ import {
     AFTER_EACH_KEY,
     BEFORE_ALL_KEY,
     AFTER_ALL_KEY,
+    TEST_CASES_KEY,
 } from './keys';
 
 export const getMetadata = <T>(ctor: Constructor<T>) => {
@@ -14,9 +15,10 @@ export const getMetadata = <T>(ctor: Constructor<T>) => {
         skips: new Set<string>(Reflect.getMetadata(SKIP_KEY, ctor) || []),
         onlys: new Set<string>(Reflect.getMetadata(ONLY_KEY, ctor) || []),
         tests: new Set<string>(Reflect.getMetadata(TESTS_KEY, ctor) || []),
-        beforeEachs: new Set<string>(Reflect.getMetadata(BEFORE_EACH_KEY, ctor) || []),
-        afterEachs: new Set<string>(Reflect.getMetadata(AFTER_EACH_KEY, ctor) || []),
-        beforeAlls: new Set<string>(Reflect.getMetadata(BEFORE_ALL_KEY, ctor) || []),
-        afterAlls: new Set<string>(Reflect.getMetadata(AFTER_ALL_KEY, ctor) || []),
+        testCases: Reflect.getMetadata(TEST_CASES_KEY, ctor) || [],
+        beforeEachs: Reflect.getMetadata(BEFORE_EACH_KEY, ctor) || [],
+        afterEachs: Reflect.getMetadata(AFTER_EACH_KEY, ctor) || [],
+        beforeAlls: Reflect.getMetadata(BEFORE_ALL_KEY, ctor) || [],
+        afterAlls: Reflect.getMetadata(AFTER_ALL_KEY, ctor) || [],
     };
 }

@@ -1,9 +1,14 @@
 import 'reflect-metadata';
-import { TESTS_KEY, BEFORE_EACH_KEY, AFTER_EACH_KEY, BEFORE_ALL_KEY, AFTER_ALL_KEY, ONLY_KEY, SKIP_KEY } from "../core/keys";
+import { TESTS_KEY, BEFORE_EACH_KEY, AFTER_EACH_KEY, BEFORE_ALL_KEY, AFTER_ALL_KEY, ONLY_KEY, SKIP_KEY, TEST_CASES_KEY } from "../core/keys";
 
 const addMeta = (target: any, key: string, symbol: symbol) => {
   const existingMeta = Reflect.getMetadata(symbol, target.constructor) || [];
   Reflect.defineMetadata(symbol, [...existingMeta, key], target.constructor);
+}
+
+export const TestCases = (cases: any[][]) => (target: any, propertyKey: string) => {
+  const existingMeta = Reflect.getMetadata(TEST_CASES_KEY, target.constructor) || [];
+  Reflect.defineMetadata(TEST_CASES_KEY, [...existingMeta, { [propertyKey]: cases }], target.constructor);
 }
 
 export const Test = (target: any, key: string) => {
