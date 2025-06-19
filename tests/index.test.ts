@@ -16,7 +16,7 @@ export class MyTest extends BaseTest {
         console.log('do something 2')
     }
 
-    @TestCases([[1, 2], [2, 3]])
+    @TestCases<[number, number]>([[1, 2], [2, 3]])
     test4(a: number, b: number) {
         console.log("a: " + a);
         console.log("b: " + b);
