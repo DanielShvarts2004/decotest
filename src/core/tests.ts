@@ -25,11 +25,10 @@ export const setUpTests = <T>(instance: T, tests: Set<string>) => {
     }
 }
 
-export const setUpTestCases = <T>(instance: T, testCases: Set<testCasesMetadata>) => {
-    for (const testCase of testCases) {
-        for (const [key, value] of Object.entries(testCase))
-            test.each(value)(key, async (...args) => {
-                await instance[key](...args);
-            });
-    }
+export const setUpTestCases = <T>(instance: T, testCases: testCasesMetadata) => {
+    Object.entries(testCases).forEach(([key, value]) => {
+        test.each(value)(key, async (...args) => {
+            await instance[key](...args);
+        });
+    });
 }

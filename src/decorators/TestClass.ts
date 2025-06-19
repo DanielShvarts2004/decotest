@@ -4,6 +4,7 @@ import { getMetadata } from '../core/metadata';
 import { setupHooks } from '../core/hooks';
 import { setUpOnlyTests, setUpSkippedTests, setUpTestCases, setUpTests } from '../core/tests';
 import { Constructor } from '../types/constructor';
+import { testCasesMetadata } from '../types/testCase';
 
 export const TestClass = <T>(constructor: Constructor<T>) => {
     describe(constructor.name, async () => {
@@ -22,10 +23,9 @@ export const TestClass = <T>(constructor: Constructor<T>) => {
         } = getMetadata(ctor);
 
         const filteredTests = tests.difference(skips).difference(onlys);
-        const filteredTestCases = testCases.filter(testCase => {
-            const key = Object.keys(testCase)[0];
-            return !skips.has(key) && !onlys.has(key);
-        });
+        const filteredTestCases = Object.fromEntries(
+            Object.entries(testCases).filter(([key, value]) => !skips.has(key) && !onlys.has(key))
+        ) as testCasesMetadata;
 
         await setupHooks(instance, {
             beforeAlls,
