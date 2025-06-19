@@ -1,4 +1,5 @@
 import { test } from "vitest";
+import { testCasesMetadata } from "../types/testCase";
 
 export const setUpSkippedTests = <T>(instance: T, skippedTests: Set<string>) => {
     for (const testName of skippedTests) {
@@ -24,10 +25,10 @@ export const setUpTests = <T>(instance: T, tests: Set<string>) => {
     }
 }
 
-export const setUpTestCases = <T>(instance: T, testCases: Set<any>) => {
+export const setUpTestCases = <T>(instance: T, testCases: Set<testCasesMetadata>) => {
     for (const testCase of testCases) {
         for (const [key, value] of Object.entries(testCase))
-            test.each(value as any)(key, async (...args) => {
+            test.each(value)(key, async (...args) => {
                 await instance[key](...args);
             });
     }
