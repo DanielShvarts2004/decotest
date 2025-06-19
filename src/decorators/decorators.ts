@@ -6,7 +6,9 @@ const addMeta = (target: any, key: string, symbol: symbol) => {
   Reflect.defineMetadata(symbol, [...existingMeta, key], target.constructor);
 }
 
-export const TestCases = <T extends any[]>(cases: T[]) => (target: any, propertyKey: string) => {
+export const TestCases = <
+  TMethod extends (...args: any[]) => any
+>(cases: Parameters<TMethod>[]) => (target: any, propertyKey: string) => {
   const existingMeta = Reflect.getMetadata(TEST_CASES_KEY, target.constructor) || [];
   Reflect.defineMetadata(TEST_CASES_KEY, { ...existingMeta, [propertyKey]: cases }, target.constructor);
 }
